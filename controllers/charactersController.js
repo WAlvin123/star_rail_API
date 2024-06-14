@@ -10,10 +10,10 @@ const getCharacters = async (req, res) => {
   }
 }
 
-// get character by field
+// get character by specific field
 const getCharacterByName = async (req, res) => {
   try {
-    const { name } = req.params;
+    const { name } = req.query;
     const character = await Character.find({ name: name })
     if (!character) {
       res.status(404).json({ message: "Character not found" })
@@ -27,7 +27,7 @@ const getCharacterByName = async (req, res) => {
 
 const getCharacterByPath = async (req, res) => {
   try {
-    const { path } = req.params;
+    const { path } = req.query;
     const character = await Character.find({ path: path })
     if (!character) {
       res.status(404).json({ message: "Character not found" })
@@ -41,7 +41,7 @@ const getCharacterByPath = async (req, res) => {
 
 const getCharacterByRole = async (req, res) => {
   try {
-    const { role } = req.params;
+    const { role } = req.query;
     const character = await Character.find({ role: role })
     if (!character) {
       res.status(404).json({ message: "Character not found" })
