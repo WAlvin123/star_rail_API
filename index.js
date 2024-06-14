@@ -1,10 +1,10 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const charactersRoute = require('./routes/charactersRoutes')
-const {loginKey} = require('./config')
-
+require("dotenv").config()
 
 const app = express()
+const loginKey = process.env.LOGIN_KEY
 
 // middleware
 app.use(express.json())
@@ -29,4 +29,4 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
   console.log('Server running on port 3000')
 })
-mongoose.connect(loginKey)
+mongoose.connect('mongodb+srv://alvinwong523:GPBZnDXqFFZVu6Dq@backend.yfxgmdl.mongodb.net/')
