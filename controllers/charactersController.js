@@ -14,7 +14,9 @@ const getCharacters = async (req, res) => {
 const getCharacterByName = async (req, res) => {
   try {
     const { name } = req.query;
-    const character = await Character.find({ name: name })
+    const character = await Character.find({
+      name: { $regex: `^${name}`, $options: 'i' }
+    })
     if (!character) {
       res.status(404).json({ message: "Character not found" })
     } else {
@@ -28,7 +30,9 @@ const getCharacterByName = async (req, res) => {
 const getCharacterByPath = async (req, res) => {
   try {
     const { path } = req.query;
-    const character = await Character.find({ path: path })
+    const character = await Character.find({
+      path: { $regex: `^${path}`, $options: 'i' }
+    })
     if (!character) {
       res.status(404).json({ message: "Character not found" })
     } else {
@@ -42,7 +46,9 @@ const getCharacterByPath = async (req, res) => {
 const getCharacterByRole = async (req, res) => {
   try {
     const { role } = req.query;
-    const character = await Character.find({ role: role })
+    const character = await Character.find({
+      role: { $regex: `^${role}`, $options: 'i' }
+    })
     if (!character) {
       res.status(404).json({ message: "Character not found" })
     } else {
