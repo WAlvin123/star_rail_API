@@ -1,9 +1,7 @@
 const express = require('express')
 const {
   getCharacters,
-  getCharacterByName,
-  getCharacterByRole,
-  getCharacterByPath,
+  getCharacterByField,
   addCharacter,
   deleteCharacter,
   editCharacter
@@ -12,9 +10,8 @@ const {
 const router = express.Router()
 
 router.get('/getAll', getCharacters)
-router.get('/getByName', getCharacterByName)
-router.get('/getByPath', getCharacterByPath)
-router.get('/getByRole', getCharacterByRole)
+router.get('', getCharacterByField)
+
 
 router.post('/add', addCharacter)
 

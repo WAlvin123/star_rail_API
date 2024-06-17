@@ -1,3 +1,5 @@
+// TODO: simplify routes, and make the find case insensitive.
+
 const Character = require('../models/character')
 
 // get all characters
@@ -11,48 +13,37 @@ const getCharacters = async (req, res) => {
 }
 
 // get character by specific field
-const getCharacterByName = async (req, res) => {
+const getCharacterByField = async (req, res) => {
   try {
-    const { name } = req.query;
-    const character = await Character.find({
-      name: { $regex: `^${name}`, $options: 'i' }
-    })
-    if (!character) {
-      res.status(404).json({ message: "Character not found" })
-    } else {
-      res.status(200).json(character)
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message })
-  }
-}
-
-const getCharacterByPath = async (req, res) => {
-  try {
-    const { path } = req.query;
-    const character = await Character.find({
-      path: { $regex: `^${path}`, $options: 'i' }
-    })
-    if (!character) {
-      res.status(404).json({ message: "Character not found" })
-    } else {
-      res.status(200).json(character)
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message })
-  }
-}
-
-const getCharacterByRole = async (req, res) => {
-  try {
-    const { role } = req.query;
-    const character = await Character.find({
-      role: { $regex: `^${role}`, $options: 'i' }
-    })
-    if (!character) {
-      res.status(404).json({ message: "Character not found" })
-    } else {
-      res.status(200).json(character)
+    const { name, path, role } = req.query;
+    if (name) {
+      const character = await Character.find({ name: name })
+      if (!character) {
+        res.status(404).json({ message: "Character not found" })
+      } else {
+        res.status(200).json(character)
+      }
+    } else if (path) {
+      const character = await Character.find({ path: path })
+      if (!character) {
+        res.status(404).json({ message: "Character not found" })
+      } else {
+        res.status(200).json(character)
+      }
+    } else if (role) {
+      const character = await Character.find({ role: role })
+      if (!character) {
+        res.status(404).json({ message: "Character not found" })
+      } else {
+        res.status(200).json(character)
+      }
+    } else if (element) {
+      const character = await Character.find({ element: element })
+      if (!character) {
+        res.status(404).json({ message: "Character not found" })
+      } else {
+        res.status(200).json(character)
+      }
     }
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -138,9 +129,7 @@ const editCharacter = async (req, res) => {
 
 module.exports = {
   getCharacters,
-  getCharacterByName,
-  getCharacterByRole,
-  getCharacterByPath,
+  getCharacterByField,
   addCharacter,
   deleteCharacter,
   editCharacter
