@@ -32,6 +32,9 @@ const characterSchema = mongoose.Schema({
   },
   weekly_materials: {
     type: String,
+  },
+  icon: {
+    type: String,
   }
 }, { versionKey: false });
 

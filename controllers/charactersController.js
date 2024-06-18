@@ -12,42 +12,51 @@ const getCharacters = async (req, res) => {
   }
 }
 
-// get character by specific field
 const getCharacterByField = async (req, res) => {
   try {
-    const { name, path, role } = req.query;
+    const { name, path, role, element } = req.query
+
     if (name) {
-      const character = await Character.find({ name: name })
-      if (!character) {
-        res.status(404).json({ message: "Character not found" })
+      const character = await Character.find({
+        name: { $regex: `^${name}`, $options: 'i' }
+      })
+      if (character) {
+        res.status(200).json({ message: character })
       } else {
-        res.status(200).json(character)
+        res.status(404).json({ message: 'Character not found' })
       }
     } else if (path) {
-      const character = await Character.find({ path: path })
-      if (!character) {
-        res.status(404).json({ message: "Character not found" })
+      const character = await Character.find({
+        path: { $regex: `^${path}`, $options: 'i' }
+      })
+      if (character) {
+        res.status(200).json({ message: character })
       } else {
-        res.status(200).json(character)
+        res.status(404).json({ message: 'Character not found' })
       }
     } else if (role) {
-      const character = await Character.find({ role: role })
-      if (!character) {
-        res.status(404).json({ message: "Character not found" })
+      const character = await Character.find({
+        role: { $regex: `^${role}`, $options: 'i' }
+      })
+      if (character) {
+        res.status(200).json({ message: character })
       } else {
-        res.status(200).json(character)
+        res.status(404).json({ message: 'Character not found' })
       }
     } else if (element) {
-      const character = await Character.find({ element: element })
-      if (!character) {
-        res.status(404).json({ message: "Character not found" })
+      const character = await Character.find({
+        element: { $regex: `^${element}`, $options: 'i' }
+      })
+      if (character) {
+        res.status(200).json({ message: character })
       } else {
-        res.status(200).json(character)
+        res.status(404).json({ message: 'Character not found' })
       }
     }
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
+
 }
 
 const addCharacter = async (req, res) => {
@@ -74,9 +83,9 @@ const deleteCharacter = async (req, res) => {
 
 const editCharacter = async (req, res) => {
   try {
-    const { id } = req.params
+    const { name } = req.params
     const updatedCharacter = req.body
-    const character = await Character.findById(id)
+    const character = await Character.findOne({ name: { $regex: `^${name}`, $options: 'i' } })
 
     if (!character) {
       res.status(404).json({ message: "Character not found" })
@@ -101,11 +110,9 @@ const editCharacter = async (req, res) => {
         character.rarity = updatedCharacter.rarity
       }
 
-
       if (updatedCharacter.trace_materials !== '' && updatedCharacter.trace_materials !== undefined) {
         character.trace_materials = updatedCharacter.trace_materials
       }
-
 
       if (updatedCharacter.ascension_materials !== '' && updatedCharacter.ascension_materials !== undefined) {
         character.ascension_materials = updatedCharacter.ascension_materials
@@ -117,6 +124,10 @@ const editCharacter = async (req, res) => {
 
       if (updatedCharacter.weekly_materials !== '' && updatedCharacter.weekly_materials !== undefined) {
         character.weekly_materials = updatedCharacter.weekly_materials
+      }
+
+      if (updatedCharacter.icon !== '' && updatedCharacter.icon !== undefined) {
+        character.icon = updatedCharacter.icon
       }
 
       res.status(200).json({ message: character })

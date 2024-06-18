@@ -12,11 +12,10 @@ const router = express.Router()
 router.get('/getAll', getCharacters)
 router.get('', getCharacterByField)
 
-
 router.post('/add', addCharacter)
 
 router.delete('/delete/:id', deleteCharacter)
 
-router.put('/edit/:id', editCharacter)
+router.put('/edit/:name', editCharacter)
 
 module.exports = router

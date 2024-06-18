@@ -8,6 +8,12 @@ const loginKey = process.env.LOGIN_KEY
 
 // middleware
 app.use(express.json())
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.setHeader('Access-Control-Allow-Methods', 'GET');
+  next();
+});
 app.use(express.urlencoded())
 
 // routes
