@@ -130,6 +130,10 @@ const editCharacter = async (req, res) => {
         character.icon = updatedCharacter.icon
       }
 
+      if (updatedCharacter.standard !== '' && updatedCharacter.standard !== undefined) {
+        character.standard = updatedCharacter.standard
+      }
+
       res.status(200).json({ message: character })
       character.save()
     }

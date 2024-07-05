@@ -37,7 +37,7 @@ const characterSchema = mongoose.Schema({
     type: String,
   },
   standard: {
-    type: Boolean
+    type: String,
   }
 }, { versionKey: false });
 
