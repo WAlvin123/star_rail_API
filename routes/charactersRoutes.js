@@ -16,6 +16,6 @@ router.post('/add', addCharacter)
 
 router.delete('/delete/:id', deleteCharacter)
 
-router.put('/edit/:name', editCharacter)
+router.put('/edit/:id', editCharacter)
 
 module.exports = router

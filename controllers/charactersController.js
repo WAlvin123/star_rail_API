@@ -83,9 +83,9 @@ const deleteCharacter = async (req, res) => {
 
 const editCharacter = async (req, res) => {
   try {
-    const { name } = req.params
+    const { id } = req.params
     const updatedCharacter = req.body
-    const character = await Character.findOne({ name: { $regex: `^${name}`, $options: 'i' } })
+    const character = await Character.findById(id)
 
     if (!character) {
       res.status(404).json({ message: "Character not found" })

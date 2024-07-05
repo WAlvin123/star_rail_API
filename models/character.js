@@ -35,6 +35,9 @@ const characterSchema = mongoose.Schema({
   },
   icon: {
     type: String,
+  },
+  standard: {
+    type: Boolean
   }
 }, { versionKey: false });
 
