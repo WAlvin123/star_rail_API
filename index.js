@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const charactersRoute = require('./routes/charactersRoutes')
+const bannerRoute = require('./routes/bannerRoutes')
 require("dotenv").config()
 
 const app = express()
@@ -18,6 +19,7 @@ app.use(express.urlencoded())
 
 // routes
 app.use("/api/characters", charactersRoute)
+app.use('/api/banners', bannerRoute)
 
 
 
